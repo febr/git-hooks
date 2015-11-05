@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+require('shelljs/global');
+
+var msg;
+var file = process.argv[2];
+var type = process.argv[3];
+// current branch name
+var branch = exec('git rev-parse --abbrev-ref HEAD').output;
+
+if (type) return exit(0);
+
+if(/COMMIT_EDITMSG/g.test(file)){
+	// comment message for git status
+	var status = exec('git status').output.split('\n')
+				.map(function(line) { return '# ' + line; })
+				.join('\n');
+	
+	msg = '#issue 123: \n'
+        + '內容';
+	msg.to(file);
+}
